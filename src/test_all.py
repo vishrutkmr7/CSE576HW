@@ -24,7 +24,7 @@ files.sort()
 for file in files:
     if ".md" not in file:
         print(f" --> testing file: {file}")
-        assert '.json' in file, 'the file does not seem to have a .json in it: ' + file
+        assert '.json' in file, f'the file does not seem to have a .json in it: {file}'
         file_path = tasks_path + file
         with open(file_path, 'r') as f:
             data = json.load(f)
@@ -42,7 +42,7 @@ for file in files:
                 assert type(x['input']) == str, f'the input of instance {x} is not a string'
                 assert type(x['output']) == list, f'the output of instance {x} is not a list'
                 for i in x['output']:
-                    assert type(i) == str, f'the output is not a string'
+                    assert type(i) == str, 'the output is not a string'
             assert len(data['Positive Examples']) > 1, "there must be at least 3 positive example"
             assert len(data['Negative Examples']) > 0, "there must be at least 2 negative example"
 
@@ -64,7 +64,7 @@ for file in files:
                         set_of_instances.remove(instance['input'])
                     except KeyError:
                         raise Exception(f" * Looks like we have a repeated example here! Merge outputs before removing duplicates. :-/ \n {instance}")
-            
+
 
             # Make sure there are no examples repeated across instances and positive examples
             examples = [ex['input'] for ex in data['Positive Examples']]
